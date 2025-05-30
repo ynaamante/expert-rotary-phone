@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Purrfect Paws Veterinary | Vaccinations</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="vaccinations.css">
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="PICTURES/logofinal.png" alt="paw">
+      <span>Purrfect Paws Veterinary</span>
+    </div>
+    <div class="nav">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="pets.html">Pets</a>
+      <a href="owners.html">Owners</a>
+      <a href="appointments.html">Appointments</a>
+      <a href="treatments.html">Treatments</a>
+      <a href="vaccinations.html" class="active">Vaccinations</a>
+    </div>
+    <div class="profile-dropdown" id="userProfileDropdown">
+      <div class="profile" id="userProfile">
+        <span class="profile-dot"></span>
+        <span id="doctorName">Dra.Amante</span>
+        <span class="profile-arrow" id="dropdownArrow">&#9662;</span>
+      </div>
+      <div class="dropdown-menu" id="profileDropdownMenu">
+        <a href="settings.html" id="settingsBtn">Settings</a>
+        <a href="#" id="logoutBtn">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="header-row">
+      <h2>Vaccination Records</h2>
+    </div>
+    <div class="controls-row">
+      <div class="search">
+        <input type="text" id="searchVaccinationsInput" placeholder="Search vaccinations...">
+      </div>
+      <div class="add-btn-row">
+        <button class="primary-btn" id="addVaccinationBtn">
+          <svg width="18" height="18" fill="none" viewBox="0 0 18 18" style="margin-right:8px;vertical-align:middle;">
+            <circle cx="9" cy="9" r="9" fill="#6d9efc"/>
+            <rect x="8" y="4" width="2" height="10" fill="#fff"/>
+            <rect x="4" y="8" width="10" height="2" fill="#fff"/>
+          </svg>
+          Add Vaccination
+        </button>
+      </div>
+    </div>
+    <div class="vacc-table-scroll">
+      <table class="vaccinations-table">
+        <thead>
+          <tr>
+            <th>VACC ID</th>
+            <th>PET</th>
+            <th>TYPE</th>
+            <th>DATE GIVEN</th>
+            <th>NEXT DUE</th>
+            <th>STATUS</th>
+            <th>ADMINISTERED BY</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody id="vaccinationsTableBody"></tbody>
+      </table>
+    </div>
+    <div class="pagination-row">
+      <button class="pagination-btn" id="prevVaccPageBtn">&#8249;</button>
+      <span class="pagination-label" id="vaccPageIndicator">Page 1 of 1</span>
+      <button class="pagination-btn" id="nextVaccPageBtn">&#8250;</button>
+    </div>
+  </div>
+
+  <!-- Add Vaccination Modal -->
+  <div class="modal" id="addVaccinationModal">
+    <div class="modal-content">
+      <span class="close" id="closeAddVaccinationModal">&times;</span>
+      <h2>Add Vaccination</h2>
+      <form id="addVaccinationForm" class="modal-details-form" autocomplete="off">
+        <div class="modal-field">
+          <label>Pet</label>
+          <select id="addVaccinationPetSelect" required>
+            <option value="">Select Pet</option>
+          </select>
+        </div>
+        <div class="modal-field">
+          <label>Vaccination Type</label>
+          <input type="text" id="addVaccinationType" required>
+        </div>
+        <div class="modal-field">
+          <label>Date Given</label>
+          <input type="date" id="addVaccinationDateGiven" required>
+        </div>
+        <div class="modal-field">
+          <label>Next Due</label>
+          <input type="date" id="addVaccinationNextDue">
+        </div>
+        <div class="modal-field">
+          <label>Status</label>
+          <select id="addVaccinationStatus" required>
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+        <div class="modal-field">
+          <label>Administered By</label>
+          <input type="text" id="addVaccinationAdministeredBy">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="modal-cancel" id="cancelAddVaccinationBtn">Cancel</button>
+          <button type="submit" class="modal-save">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Vaccination Modal -->
+  <div class="modal" id="editVaccinationModal">
+    <div class="modal-content">
+      <span class="close" id="closeEditVaccinationModal">&times;</span>
+      <h2>Edit Vaccination</h2>
+      <form id="editVaccinationForm" class="modal-details-form" autocomplete="off">
+        <input type="hidden" id="editVaccinationId">
+        <div class="modal-field">
+          <label>Pet</label>
+          <select id="editVaccinationPetSelect" required>
+            <option value="">Select Pet</option>
+          </select>
+        </div>
+        <div class="modal-field">
+          <label>Vaccination Type</label>
+          <input type="text" id="editVaccinationType" required>
+        </div>
+        <div class="modal-field">
+          <label>Date Given</label>
+          <input type="date" id="editVaccinationDateGiven" required>
+        </div>
+        <div class="modal-field">
+          <label>Next Due</label>
+          <input type="date" id="editVaccinationNextDue">
+        </div>
+        <div class="modal-field">
+          <label>Status</label>
+          <select id="editVaccinationStatus" required>
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+        <div class="modal-field">
+          <label>Administered By</label>
+          <input type="text" id="editVaccinationAdministeredBy">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="modal-cancel" id="cancelEditVaccinationBtn">Cancel</button>
+          <button type="submit" class="modal-save">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- View Vaccination Modal -->
+  <div class="modal" id="viewVaccinationModal">
+    <div class="modal-content">
+      <span class="close" id="closeViewVaccinationModal">&times;</span>
+      <h2>Vaccination Details</h2>
+      <div class="modal-details-form">
+        <div class="modal-field">
+          <label>ID</label>
+          <div class="modal-field-value" id="viewVaccinationId"></div>
+        </div>
+        <div class="modal-field">
+          <label>Pet</label>
+          <div class="modal-field-value" id="viewVaccinationPet"></div>
+        </div>
+        <div class="modal-field">
+          <label>Type</label>
+          <div class="modal-field-value" id="viewVaccinationType"></div>
+        </div>
+        <div class="modal-field">
+          <label>Date Given</label>
+          <div class="modal-field-value" id="viewVaccinationDateGiven"></div>
+        </div>
+        <div class="modal-field">
+          <label>Next Due</label>
+          <div class="modal-field-value" id="viewVaccinationNextDue"></div>
+        </div>
+        <div class="modal-field">
+          <label>Status</label>
+          <div class="modal-field-value" id="viewVaccinationStatus"></div>
+        </div>
+        <div class="modal-field">
+          <label>Administered By</label>
+          <div class="modal-field-value" id="viewVaccinationAdministeredBy"></div>
+        </div>
+      </div>
+      <div class="modal-actions" style="margin-top:18px;">
+        <button type="button" class="modal-save" id="closeViewVaccinationBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Vaccination Modal -->
+  <div class="modal" id="deleteVaccinationModal">
+    <div class="modal-content">
+      <span class="close" id="closeDeleteVaccinationModal">&times;</span>
+      <h2>Delete Vaccination</h2>
+      <div class="delete-warning" id="deleteVaccinationMsg">Are you sure you want to delete this vaccination?</div>
+      <div class="modal-actions">
+        <button type="button" class="modal-cancel" id="cancelDeleteVaccinationBtn">Cancel</button>
+        <button type="button" class="modal-save" style="background:#fa9494;" id="confirmDeleteVaccinationBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="vaccinations.js"></script>
+</body>
+</html>
